@@ -1,7 +1,7 @@
 require 'net/http'
 require 'json'
 
-module Btsync
+module BtsyncApi
   class ApiError < Exception
     attr_reader :error_code
     def initialize(error_code)
@@ -21,7 +21,7 @@ module Btsync
       params.merge!(options)
       response = do_request(params)
       if response['error'] && response['error'] != 0
-        raise ::Btsync::ApiError.new(response['error']), response['message']
+        raise BtsyncApi::ApiError.new(response['error']), response['message']
       end
       response
     end
@@ -33,7 +33,7 @@ module Btsync
         else
           return execute(method)
         end
-      rescue ::Btsync::ApiError => e
+      rescue BtsyncApi::ApiError => e
         if e.error_code != 1 # not found
           raise e
         end

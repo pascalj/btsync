@@ -4,8 +4,8 @@ $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 require 'btsync/version'
 
 Gem::Specification.new do |spec|
-  spec.name          = "btsync"
-  spec.version       = Btsync::VERSION
+  spec.name          = "btsync_api"
+  spec.version       = BtsyncApi::VERSION
   spec.authors       = ["Pascal Jungblut"]
   spec.email         = ["mail@pascal-jungblut.com"]
   spec.description   = %q{Wrapper for the BitTorrent Sync API}

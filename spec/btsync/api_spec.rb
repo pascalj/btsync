@@ -1,9 +1,9 @@
 require 'spec_helper'
 require_relative '../../lib/btsync/api.rb'
 
-describe Btsync::Api do
+describe BtsyncApi::Api do
 
-  let(:api) { Btsync::Api.new }
+  let(:api) { BtsyncApi::Api.new }
 
   before(:each) do
     api.stub(:do_request).and_return({"error" => 0})
@@ -58,7 +58,7 @@ describe Btsync::Api do
       api.should_receive(:do_request).and_return({ "error" => 2, "message" => "Specify all the required parameters for get_files." })
       expect{
         api.get_files
-      }.to raise_error(Btsync::ApiError)
+      }.to raise_error(BtsyncApi::ApiError)
     end
   end
 end
