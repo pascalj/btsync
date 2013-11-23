@@ -1,5 +1,7 @@
 # btsync
 
+[![Build Status](https://travis-ci.org/pascalj/btsync.png?branch=master)](https://travis-ci.org/pascalj/btsync)
+
 A Ruby wrapper for the [BitTorrent Sync API](http://www.bittorrent.com/sync/developers).
 
 ## Installation
