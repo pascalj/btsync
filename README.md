@@ -20,7 +20,7 @@ Or install it yourself as:
 
 Once you started the BitTorrent Sync client as described in the [documentation](http://www.bittorrent.com/sync/developers/api), you can use the wrapper:
 
-```
+```ruby
 options = {host: 'localhost', port: 8888, login: '', password: ''} # default
 api = Btsync::Api.new(options)
 api.get_os # => {"os"=>"mac"}
