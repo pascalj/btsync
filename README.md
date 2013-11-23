@@ -6,7 +6,7 @@ A Ruby wrapper for the [BitTorrent Sync API](http://www.bittorrent.com/sync/deve
 
 Add this line to your application's Gemfile:
 
-    gem 'btsync'
+    gem 'btsync_api'
 
 And then execute:
 
@@ -14,7 +14,7 @@ And then execute:
 
 Or install it yourself as:
 
-    $ gem install btsync
+    $ gem install btsync_api
 
 ## Usage
 
@@ -22,13 +22,13 @@ Once you started the BitTorrent Sync client as described in the [documentation](
 
 ```ruby
 options = {host: 'localhost', port: 8888, login: '', password: ''} # default
-api = Btsync::Api.new(options)
+api = BtsyncApi::Api.new(options)
 api.get_os # => {"os"=>"mac"}
 
 # pass arguments to the API
 api.add_folder(dir: dirPath, secret: my_secret, selective_sync: 1)
 
-api.remove_folder # raises Btsync::ApiError('Specify all the required parameters for remove_folder')
+api.remove_folder # raises BtsyncApi::ApiError('Specify all the required parameters for remove_folder')
 ```
 *Note:* The error codes from the BitTorrent Sync API are not yet completely consistent, so expect some `NoMethodError` where it should actually be `Btsync::ApiError`.
 
