@@ -6,7 +6,7 @@ describe Btsync::Api do
   let(:api) { Btsync::Api.new }
 
   before(:each) do
-    Net::HTTP.stub(:get).and_return('{"error": 0}')
+    api.stub(:do_request).and_return({"error" => 0})
   end
 
   describe "#initialize" do
@@ -18,18 +18,13 @@ describe Btsync::Api do
   
   describe "#execute" do
 
-    it "uses GET to call the API" do
-      Net::HTTP.should_receive(:get)
+    it "calls the API" do
+      api.should_receive(:do_request).and_return({})
       api.execute('my_method')
     end
 
-    it "sends the method as a parameter" do
-      URI.should_receive(:encode_www_form).with(method: 'my_method')
-      api.execute('my_method')
-    end
-
-    it "adds options as additional parameters" do
-      URI.should_receive(:encode_www_form).with(method: 'my_method', foo: 'bar', baz: 'foo')
+    it "merges the options as additional parameters" do
+      api.should_receive(:do_request).with(method: 'my_method', foo: 'bar', baz: 'foo')
       api.execute('my_method', foo: 'bar', baz: 'foo')
     end
   end
@@ -53,14 +48,14 @@ describe Btsync::Api do
     end
 
     it "calls super if the method is not found" do
-      Net::HTTP.should_receive(:get).and_return('{ "error": 1, "message": "Invalid API method name or format." }')
+      api.should_receive(:do_request).and_return({ "error" => 1, "message" => "Invalid API method name or format." })
       expect{
         api.unkown_method
       }.to raise_error(NoMethodError)
     end
 
     it "passes exceptions other than method not found through" do
-      Net::HTTP.should_receive(:get).and_return('{ "error": 2, "message": "Specify all the required parameters for get_files." }')
+      api.should_receive(:do_request).and_return({ "error" => 2, "message" => "Specify all the required parameters for get_files." })
       expect{
         api.get_files
       }.to raise_error(Btsync::ApiError)

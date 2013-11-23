@@ -19,9 +19,7 @@ module Btsync
     def execute(method, options = {})
       params = {method: method.to_s}
       params.merge!(options)
-      url = base_url
-      url.query = URI.encode_www_form(params)
-      response = JSON.parse(Net::HTTP.get(url))
+      response = do_request(params)
       if response['error'] && response['error'] != 0
         raise ::Btsync::ApiError.new(response['error']), response['message']
       end
@@ -45,6 +43,16 @@ module Btsync
 
   private
 
+    def do_request(params)
+      url = base_url
+      url.query = URI.encode_www_form(params)
+      http = Net::HTTP.new(url.host, url.port)
+      request = Net::HTTP::Get.new(url.request_uri)
+      request.basic_auth(settings[:login], settings[:password])
+      response = http.request(request)
+      JSON.parse(response.body)
+    end
+
     def base_url
       URI::HTTP.build(path: '/api', port: settings[:port], host: settings[:host])
     end
@@ -52,7 +60,9 @@ module Btsync
     def default_settings
       {
         host: 'localhost',
-        port: 8888
+        port: 8888,
+        login: '',
+        password: ''
       }
     end
   end
