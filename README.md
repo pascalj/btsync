@@ -1,6 +1,7 @@
 # btsync
 
 [![Build Status](https://travis-ci.org/pascalj/btsync.png?branch=master)](https://travis-ci.org/pascalj/btsync)
+[![Gem Version](https://badge.fury.io/rb/btsync_api.png)](http://badge.fury.io/rb/btsync_api)
 
 A Ruby wrapper for the [BitTorrent Sync API](http://www.bittorrent.com/sync/developers).
 
@@ -28,7 +29,7 @@ api = BtsyncApi::Api.new(options)
 api.get_os # => {"os"=>"mac"}
 
 # pass arguments to the API
-api.add_folder(dir: dirPath, secret: my_secret, selective_sync: 1)
+api.add_folder(dir: dir_path, secret: my_secret, selective_sync: 1)
 
 api.remove_folder # raises BtsyncApi::ApiError('Specify all the required parameters for remove_folder')
 ```
