@@ -2,7 +2,7 @@ require 'net/http'
 require 'json'
 
 module BtsyncApi
-  class ApiError < Exception
+  class ApiError < StandardError
     attr_reader :error_code
     def initialize(error_code)
       @error_code = error_code
