@@ -20,7 +20,7 @@ module BtsyncApi
       params = {method: method.to_s}
       params.merge!(options)
       response = do_request(params)
-      if response['error'] && response['error'] != 0
+      if response.is_a?(Hash) && response['error'] && response['error'] != 0
         raise BtsyncApi::ApiError.new(response['error']), response['message']
       end
       response

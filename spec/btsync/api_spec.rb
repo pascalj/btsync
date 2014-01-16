@@ -15,7 +15,7 @@ describe BtsyncApi::Api do
       api.settings[:port].should == 8888
     end
   end
-  
+
   describe "#execute" do
 
     it "calls the API" do
@@ -26,6 +26,13 @@ describe BtsyncApi::Api do
     it "merges the options as additional parameters" do
       api.should_receive(:do_request).with(method: 'my_method', foo: 'bar', baz: 'foo')
       api.execute('my_method', foo: 'bar', baz: 'foo')
+    end
+
+    it "handles arrays as response" do
+      api.stub(:do_request).and_return([])
+      expect{
+        api.execute('get_folders')
+      }.to_not raise_error
     end
   end
 
